@@ -9,6 +9,7 @@
     "@types/core-js": "^2.5.3",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
+    "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
