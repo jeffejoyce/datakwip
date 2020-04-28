@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import Chart from './Chart';
 import styles from './index.scss';
+import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBTable, MDBTableHead, MDBTableBody } from "mdbreact";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 
 function App() {
   const [chartName, setChartName] = useState('');
@@ -47,34 +51,36 @@ function App() {
   }
 
   return (
-    <>
-      <div className="left">
-        <form onSubmit={handleChart}>
-          <p>Chart Name</p>
-          <input
-            className="in"
-            type="text"
-            value={chartName}
-            onChange={e => setChartName(e.target.value)}
-          />
-          <p>Chart Type</p>
-          <select className="in" value={template} onChange={e  => setTemplateValues(e.target.value)}>
-            <option value={''} ></option>
-            <option value={'line'}>Line</option>
-            <option value={'bar'}>Bar</option>
-            <option value={'pie'}>Pie</option>
-            <option value={'polarArea'}>Polar Area</option>
-          </select>
-          <input type="submit" value="Submit New Template" />
-        </form>
-        <div>
-          <p>Data Fields</p>
-          <table className="table">
-            <tbody>
+    <MDBContainer>
+      <MDBRow>
+        <MDBCol className="border">
+          <form onSubmit={handleChart}>
+            <h2 className="pad">Chart Name</h2>
+            <input
+              className="in"
+              type="text"
+              value={chartName}
+              onChange={e => setChartName(e.target.value)}
+            />
+            <h2 className="pad">Chart Type</h2>
+            <select className="in" value={template} onChange={e  => setTemplateValues(e.target.value)}>
+              <option value={''} ></option>
+              <option value={'line'}>Line</option>
+              <option value={'bar'}>Bar</option>
+              <option value={'pie'}>Pie</option>
+              <option value={'polarArea'}>Polar Area</option>
+            </select>
+            <input className="pad" type="submit" value="Submit New Template" />
+          </form>
+          <h2 className="pad">Chart Table</h2>
+          <MDBTable striped bordered>
+            <MDBTableHead>
               <tr>
                 <th>Key</th>
                 <th>Value</th>
               </tr>
+            </MDBTableHead>
+            <MDBTableBody>
               {formValues.map((f, i) => {
                 return (
                   <tr key={i} className="table">
@@ -83,36 +89,42 @@ function App() {
                   </tr>
                 )
               })}
-            </tbody>
-          </table>
-        </div>
-        <div className="in">
-          <form onSubmit={handleForm}>
-            <input 
-              type="text"
-              value={key}
-              onChange={e => setKey(e.target.value)}
-            />
-            <input 
-              type="text"
-              value={value}
-              onChange={e => setValue(e.target.value)}
-            />
-            <input type="submit" value="Submit Data" />
-          </form>
-        </div>
-        <button onClick={clearForm}>
-          Clear Form
-        </button>
-      </div>
-      <div className="right">
-        {chartValues.map((e, i) => {
-          return (
-            <Chart key={i} cName={e.name} cType={e.type} cLabels={e.labels} cData={e.data} />
-          );
-        })}
-      </div>
-    </>
+            </MDBTableBody>
+          </MDBTable>
+          <div>
+            <form className="in">
+              <MDBInput
+                label="Enter Key"
+                type="text"
+                value={key}
+                onChange={e => setKey(e.target.value)} 
+              />
+              <MDBInput
+                label="Enter Value"
+                type="text"
+                value={value}
+                onChange={e => setValue(e.target.value)}
+              />
+            </form>
+          </div>
+          <div className="form">
+            <button className="pad" onClick={handleForm}>
+              Submit Data
+            </button>
+            <button className="pad" onClick={clearForm}>
+              Clear Form
+            </button>
+          </div>
+        </MDBCol>
+        <MDBCol>
+          {chartValues.map((e, i) => {
+            return (
+              <Chart key={i} cName={e.name} cType={e.type} cLabels={e.labels} cData={e.data} />
+            );
+          })}
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
   );
 }
 

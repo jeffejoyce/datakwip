@@ -16,6 +16,11 @@ function Charts(props) {
                     }
                 ]
             },
+            options: {
+                animation: {
+                    duration: 0,
+                }
+            }
         });
     })
 
